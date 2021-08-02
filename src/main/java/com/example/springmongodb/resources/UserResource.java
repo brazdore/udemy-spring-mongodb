@@ -1,5 +1,6 @@
 package com.example.springmongodb.resources;
 
+import com.example.springmongodb.domain.Post;
 import com.example.springmongodb.domain.User;
 import com.example.springmongodb.dto.UserDTO;
 import com.example.springmongodb.services.UserService;
@@ -30,6 +31,12 @@ public class UserResource {
     public ResponseEntity<UserDTO> findByID(@PathVariable String id) {
         User obj = service.findByID(id);
         return ResponseEntity.ok().body(new UserDTO(obj));
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findByID(id);
+        return ResponseEntity.ok().body(obj.getList());
     }
 
     @PostMapping
